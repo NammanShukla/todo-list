@@ -6,9 +6,9 @@ function renderTasks() {
     taskList.forEach((task, index) => {
         taskListElement.innerHTML += `
             <li class="${task.completed ? 'completed' : ''}">
-                <span>${task.id} | ${task.name}</span>
+                <span>${task.name}</span>
                 <div class="task-buttons">
-                    <button onclick="editTask(${index})">Edit</button>
+                    <button class="edit-button",onclick="editTask(${index})">Edit</button>
                     <button onclick="deleteTask(${index})">Delete</button>
                     <button onclick="toggleComplete(${index})">${task.completed ? 'Undo' : 'Complete'}</button>
                 </div>
