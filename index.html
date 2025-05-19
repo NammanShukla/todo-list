@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Very Simple To-do List</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
-<body> 
+<body>
     <header>
         <h1>A Very Simple To-do List</h1>
     </header>
-    <div class="list-container"> 
-        <input type="text" id="task-name" placeholder="Add a Task"> 
-        <button> Add Task </button>
-
+    <div class="task-container">
+        <input type="text" id="task-name" placeholder="Enter a Task">
+        <button onclick="addTask()">Add Task</button>
         <ul id="task-list"></ul>
     </div>
-
     <script src="app.js"></script>
 </body>
-
 </html>
