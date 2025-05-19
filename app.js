@@ -8,7 +8,7 @@ function renderTasks() {
             <li class="${task.completed ? 'completed' : ''}">
                 <span>${task.name}</span>
                 <div class="task-buttons">
-                    <button class="edit-button",onclick="editTask(${index})">Edit</button>
+                    <button onclick="editTask(${index})">Edit</button>
                     <button onclick="deleteTask(${index})">Delete</button>
                     <button onclick="toggleComplete(${index})">${task.completed ? 'Undo' : 'Complete'}</button>
                 </div>
