@@ -77,3 +77,20 @@ header{
     cursor: pointer;
     padding: 5px 10px;
 }
+
+.search-input{
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.search-input input{
+    width: 95%;
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
