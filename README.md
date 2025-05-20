@@ -7,4 +7,5 @@ To initiate the basic application, assuming the *No Frameworks yet* rule applies
 
 ### Task 2 
 
-This feature is a simple search bar where the input is used to filter the list that is made by the user. 
+This feature is a simple search bar where the input is used to filter the list that is made by the user. Additionally, searching for "completed" or "pending". 
+I also added a status bar which will help tell the how many tasks are completed, how many are left and how many in total. 
