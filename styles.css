@@ -69,6 +69,10 @@ header{
     color: #999;
 }
 
+.task-buttons{
+    width: 20%;
+}
+
 .task-buttons button {
     margin-left: 5px;
     color: #fff;
@@ -108,4 +112,10 @@ header{
 .task-status{
     font-size: 14px;
     text-align: center;
+    font-weight: bold;
+}
+
+.dropdown-btn{
+    font-weight: bold;
+    border-radius: 5px;
 }
