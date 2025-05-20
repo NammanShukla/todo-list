@@ -94,3 +94,18 @@ header{
     border-radius: 15px;
     margin-bottom: 15px;
 }
+
+.status-bar{
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.task-status{
+    font-size: 14px;
+    text-align: center;
+}
