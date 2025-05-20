@@ -10,20 +10,27 @@
     <header>
         <h1>A Very Simple To-do List</h1>
     </header>
+
     <div class="search-input">
-        <input type="text" id="task-filter" placeholder="Search Tasks Here" oninput="filterTask(this.value)">
+    <input type="text" id="task-filter" placeholder="Search Tasks Here" oninput="applyFilters()">
+    <select id="status-filter" class="dropdown-btn" onchange="applyFilters()">
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <option value="pending">Pending</option>
+    </select>
     </div>
 
     <div class="status-bar">
-        <div class="task-status" id="task-status">
-
-        </div>
+        <div class="task-status" id="task-status"></div>
     </div>
+
     <div class="task-container">
         <input type="text" id="task-name" placeholder="Enter a Task">
         <button onclick="addTask()">Add Task</button>
         <ul id="task-list"></ul>
+        <button onclick="deleteSelectedTasks()"> Delete Selected Tasks </button>
     </div>
+    
     <script src="app.js"></script>
 </body>
 </html>
