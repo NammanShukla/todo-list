@@ -1,24 +1,27 @@
 const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function renderTasks(filter = '') {
+function renderTasks(filterText = '', status = 'all') {
     const taskListElement = document.getElementById('task-list');
     const taskStatusElement = document.getElementById('task-status');
     taskListElement.innerHTML = '';
 
-    let filteredTasks;
+    const lowerText = filterText.toLowerCase();
 
-    const lowerFilter = filter.toLowerCase();
-    if (lowerFilter === 'completed') {
-        filteredTasks = taskList.filter(task => task.completed);
-    } else if (lowerFilter === 'pending') {
-        filteredTasks = taskList.filter(task => !task.completed);} 
-    else {
-        filteredTasks = taskList.filter(task => task.name.toLowerCase().includes(lowerFilter));
-    }
+    const filteredTasks = taskList.filter(task => {
+        const matchesText = task.name.toLowerCase().includes(lowerText);
+        const matchesStatus =
+            status === 'all' ||
+            (status === 'completed' && task.completed) ||
+            (status === 'pending' && !task.completed);
+        return matchesText && matchesStatus;
+    });
 
     filteredTasks.forEach((task, index) => {
         taskListElement.innerHTML += `
             <li class="${task.completed ? 'completed' : ''}">
+                <div class="checkbox-layout">
+                <input type="checkbox" class="task-checkbox" data-id="${task.id}">
+                </div>
                 <span>${task.name}</span>
                 <div class="task-buttons">
                     <button onclick="editTask(${index})">Edit</button>
@@ -44,31 +47,48 @@ function addTask() {
     if (name) {
         const id = Math.random().toString(36).substr(2, 9);
         taskList.push({ id, name, completed: false });
-        renderTasks(document.getElementById('task-filter').value);
+        applyFilters();
         document.getElementById('task-name').value = '';
     }
 }
 
 function deleteTask(index) {
     taskList.splice(index, 1);
-    renderTasks(document.getElementById('task-filter').value);
+    applyFilters();
 }
 
 function toggleComplete(index) {
     taskList[index].completed = !taskList[index].completed;
-    renderTasks(document.getElementById('task-filter').value);
+    applyFilters();
 }
 
 function editTask(index) {
     const newName = prompt('Enter new task name:', taskList[index].name);
     if (newName !== null) {
         taskList[index].name = newName.trim();
-        renderTasks(document.getElementById('task-filter').value);
+        applyFilters();
     }
 }
 
 function filterTask(query) {
     renderTasks(query);
+}
+
+function applyFilters() {
+    const text = document.getElementById('task-filter').value;
+    const status = document.getElementById('status-filter').value;
+    renderTasks(text, status);
+}
+
+function deleteSelectedTasks() {
+    const checkboxes = document.querySelectorAll('.task-checkbox:checked');
+    const idsToDelete = Array.from(checkboxes).map(cb => cb.getAttribute('data-id'));
+    for (let i = taskList.length - 1; i >= 0; i--) {
+        if (idsToDelete.includes(taskList[i].id)) {
+            taskList.splice(i, 1);
+        }
+    }
+    applyFilters();
 }
 
 renderTasks();
