@@ -2,23 +2,42 @@ const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function renderTasks(filter = '') {
     const taskListElement = document.getElementById('task-list');
+    const taskStatusElement = document.getElementById('task-status');
     taskListElement.innerHTML = '';
-    taskList
-        .filter(task => task.name.toLowerCase().includes(filter.toLowerCase()))
-        .forEach((task, index) => {
-            taskListElement.innerHTML += `
-                <li class="${task.completed ? 'completed' : ''}">
-                    <span>${task.name}</span>
-                    <div class="task-buttons">
-                        <button onclick="editTask(${index})">Edit</button>
-                        <button onclick="deleteTask(${index})">Delete</button>
-                        <button onclick="toggleComplete(${index})">${task.completed ? 'Undo' : 'Complete'}</button>
-                    </div>
-                </li>
-            `;
-        });
+
+    let filteredTasks;
+
+    const lowerFilter = filter.toLowerCase();
+    if (lowerFilter === 'completed') {
+        filteredTasks = taskList.filter(task => task.completed);
+    } else if (lowerFilter === 'pending') {
+        filteredTasks = taskList.filter(task => !task.completed);} 
+    else {
+        filteredTasks = taskList.filter(task => task.name.toLowerCase().includes(lowerFilter));
+    }
+
+    filteredTasks.forEach((task, index) => {
+        taskListElement.innerHTML += `
+            <li class="${task.completed ? 'completed' : ''}">
+                <span>${task.name}</span>
+                <div class="task-buttons">
+                    <button onclick="editTask(${index})">Edit</button>
+                    <button onclick="deleteTask(${index})">Delete</button>
+                    <button onclick="toggleComplete(${index})">${task.completed ? 'Undo' : 'Complete'}</button>
+                </div>
+            </li>
+        `;
+    });
+
+    const total = taskList.length;
+    const completed = taskList.filter(task => task.completed).length;
+    const remaining = total - completed;
+    taskStatusElement.textContent = `Total: ${total} | Completed: ${completed} | Remaining: ${remaining}`;
+
     localStorage.setItem('tasks', JSON.stringify(taskList));
 }
+
+
 
 function addTask() {
     const name = document.getElementById('task-name').value.trim();
